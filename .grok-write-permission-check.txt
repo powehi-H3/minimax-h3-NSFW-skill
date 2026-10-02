@@ -1,0 +1,2 @@
+Grok write-permission probe.
+Temporary file — safe to delete after verification.
