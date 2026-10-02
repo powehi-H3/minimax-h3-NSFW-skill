@@ -1,43 +1,38 @@
-# B — AI RECOMMENDED OPTIMIZATION / AI 推荐优化版
+# PW-OPT-001｜Version B — AI 推荐优化版
 
-## 定位
+状态：**EXPERIMENTAL / FROZEN FOR EXPERIMENT**
 
-独立实验版本。
+本目录是 PW-OPT-001 的 B 组独立实验资产。
 
-目标是：由 GPT + Gemini 基于外部 Skill 研究、V1-5 现况和工程分析，**独立设计一套推荐优化方案**。
+## 隔离纪律
 
-## 与正式 Skill 的关系
+- 正式 V1-5 Baseline：FROZEN，不修改。
+- A 组：外部 Skill 全量参考版，独立保存。
+- B 组：GPT + Gemini 独立重构版，独立保存。
+- B 不复制 A 的具体实现。
+- B 不反向污染正式 Skill。
+- A/B 测试前不互相读取最终优化规则作为约束。
+- 任何具体历史剧情、人物、动作或旧 Prompt 偏好只可作为 Benchmark，不得自动升级为通用 Skill Rule。
 
-完全隔离。
+## B 版来源
 
-不得：
-- 覆盖正式 V1-5；
-- 修改正式 SKILL.md；
-- 将实验结论自动升级为正式规则；
-- 把 Experiment A 的最终版本直接复制为 B。
+B 版设计来自：
+1. V1-5 Baseline 的通用结构与 Reference Semantics；
+2. 外部 `benjiyaya/Minimax-H3-Prompt-AgentSkill` 的公开工程思想研究；
+3. GPT 独立 B-01～B-26 研究清单；
+4. Gemini 对 B-01～B-26 的第二次独立逻辑审核。
 
-## 方法
+## 三阶段落地
 
-允许参考：
-- 外部 Skill 的研究结果；
-- Gemini 的独立分析；
-- GPT 的工程分析；
-- 已有 Research Candidates。
+1. **Architecture**：`Ideation → Semantic Plan → Reference Map → Shot Plan → Physical Execution Plan → H3 Format Compiler → Verification`
+2. **B Skill**：按 `SKILL.md` 实现实验编译规则；内部 IR/Retention/Debug 元数据不得泄漏到最终 H3 Payload。
+3. **Verification**：执行 Shot-Level 与 Global Verification，并记录规则生命周期。
 
-但最终形成的是一套独立的 AI 推荐方案，而不是外部 Skill 的全量移植。
+## 当前状态
 
-需要明确记录：
-- 为什么保留某机制；
-- 为什么删除某机制；
-- 为什么重构某机制；
-- 哪些内容仍属于实验假设。
-
-## 后续
-
-完成后交给 Grok。
-
-Grok 使用该实验版本独立生成 Prompt，标记为：
-
-`PROMPT-EXPERIMENT-B`
-
-再与 Experiment A 的 Prompt 对比。
+- B 设计审核：COMPLETED
+- B 推荐清单：FROZEN FOR EXPERIMENT
+- B Skill 落地：本分支进行中
+- Grok Prompt A/B：PENDING
+- H3 A/B 实测：PENDING
+- 正式 V1-5 升级：NOT APPROVED
