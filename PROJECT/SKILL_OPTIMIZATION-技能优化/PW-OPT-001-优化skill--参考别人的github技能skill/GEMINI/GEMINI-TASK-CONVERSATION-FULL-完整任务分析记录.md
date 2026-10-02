@@ -74,8 +74,106 @@
 
 ---
 
+## 五、Gemini 针对 PW-OPT-001 B 版（AI 推荐优化版）的完整分析与最终清单
+
+> **归档性质：** 本节保存 Gemini 针对 B 版的独立分析结果与最终推荐清单。它是任务研究资产，不等于 V1-5 Skill 已修改，也不等于用户已经批准升级。
+
+### 1. B 版核心设计原则
+
+Gemini 将 B 版定位为：
+
+> **高执行精度 + 零语义漂移 + 极简注意力预算**
+
+核心思想：
+
+- 100% 继承 V1-5 Baseline 的 6 段式标准结构与 `retention_analysis` 参考图隔离机制。
+- 不盲从外部 Skill 的全量设计。
+- 剔除可能造成 H3 注意力稀释与语义捏造的冗余描写。
+- 将外部 Skill 中具有潜在工程价值的执行强化作为独立实验资产，而不是直接写入正式 Skill。
+- Narrative Creative Enhancement 与 Prompt Compilation 解耦。
+
+### 2. B 版五大 Execution Enrichment
+
+#### B-01 — ONE Dominant Action Bottleneck
+
+在 `detailed_description` 的单个 Shot 时间戳区间内，仅允许 1 个主导物理动作矢量。次要动作或视角转换必须切割至下一个独立 Shot。
+
+目标：减少 H3 并行处理多重复杂动态时的卡顿、肢体变形与逻辑崩溃。
+
+#### B-02 — 3-Tier Spatial Depth Grid
+
+在 9:16 竖屏或复杂空间场景开头，明确空间网格与比例划分，例如 Foreground / Background 的职责和比例。
+
+目标：为 H3 建立更明确的空间层次，减少主体与背景重叠、遮挡和空间错位。
+
+#### B-03 — Action Vector Wording
+
+将抽象的心理 / 情绪描述尽可能转译为可观察的物理视觉特征、动作方向、幅度、频率、接触关系与姿态变化。
+
+目标：提升 H3 对动作和微表情的执行稳定性。
+
+#### B-04 — Progressive Physical Accumulation
+
+对于需要跨 Shot 保持的物理状态，在后续时间点明确声明其持续 / 累积状态，而不是假定模型一定会自动继承。
+
+目标：减少跨时间戳的状态突变和丢失。
+
+#### B-05 — Camera Kinematics Decoupling
+
+摄像机 Transform / 机位 / 运镜信息作为独立描述，避免与角色主体动作混写，从而降低模型将镜头变化误解为主体运动的风险。
+
+目标：提高镜头与主体动作的可控性。
+
+### 3. B 版明确隔离的风险项
+
+以下内容不进入正式 Skill 默认规则：
+
+- `Pacing Arc`：不能在 Prompt Compilation 阶段强制改变用户已经确定的剧情节奏。
+- `Environmental Reactivity`：不默认增加无授权的背景动态，以避免注意力分散。
+- `Visual Texture`：不默认堆砌大量风格修饰词；视觉风格优先由 Reference 与用户需求决定。
+
+### 4. B 版六段式模板方向
+
+B 版保持 V1-5 的结构骨架：
+
+1. `subject_definitions`
+2. `summary`
+3. `retention_analysis`
+4. `detailed_description`
+5. `overall_soundscape`
+6. `non_diegetic_music`
+
+其中 `detailed_description` 增加实验性的：
+
+- Spatial Depth Grid
+- Pose Lock
+- Shot-level Dominant Action
+- Camera Decoupling
+- Progressive Physical State Continuity
+
+### 5. B 版 Grok Handoff 要点
+
+当 Grok 后续基于 B 版实验资产生成测试 Prompt 时，需要重点观察：
+
+1. 单个 Shot 是否确实保持单一主导动作。
+2. Spatial Depth Grid 是否改善前景 / 背景空间关系。
+3. Action Vector 描述是否减少动作执行漂移。
+4. Physical Continuity 是否减少跨 Shot 状态突变。
+5. Camera 与主体动作解耦是否改善镜头稳定性。
+
+### 6. B 版状态
+
+```text
+STATUS: EXPERIMENTAL
+BASELINE: V1-5 FROZEN
+NOT_A_SKILL_UPDATE: true
+USER_APPROVAL: PENDING
+```
+
+---
+
 ## 归档说明
 
-本文件用于保存 Gemini 针对 PW-OPT-001 的独立分析记录与核心研讨结论，供 GPT、Grok、Gemini 以及未来加入项目的其他 AI 阅读。
+本文件用于保存 Gemini 针对 PW-OPT-001 的独立分析记录、研究候选、B 版实验清单与核心研讨结论，供 GPT、Grok、Gemini 以及未来加入项目的其他 AI 阅读。
 
-**重要：** 本归档不代表 GPT 已接受其中全部判断，也不代表任何 Research Candidate 已升级为 V1-5 Skill 规则。上述内容保持为 Gemini 的独立意见与研究记录；任何正式升级仍需按照项目既有协作、验证与用户批准流程执行。
+**重要：** 本归档不代表 GPT 已接受其中全部判断，也不代表任何 Research Candidate 或 B 版实验资产已经升级为 V1-5 Skill 规则。上述内容保持为 Gemini 的独立意见与研究记录；任何正式升级仍需按照项目既有协作、验证与用户批准流程执行。
