@@ -2,7 +2,7 @@
 
 ## Checkpoint
 
-CP-001
+CP-002
 
 ## Date
 
@@ -12,13 +12,12 @@ CP-001
 
 # Current Project State
 
-The project has restarted from the current V1-5 Skill baseline.
+The project is operating from the current V1-5 Skill baseline.
 
 The current priority is practical MiniMax H3 NSFW prompt writing and
-optimization.
+optimization, especially multi-reference workflows.
 
-The project should not automatically continue historical architecture
-discussions.
+Historical architecture discussions remain archive/context only unless the User explicitly reactivates them.
 
 ---
 
@@ -36,6 +35,8 @@ Status:
 
 FROZEN
 
+The baseline Skill has not been modified.
+
 ---
 
 # Current Objective
@@ -48,6 +49,23 @@ Use the existing Skill to:
 - work with multi-reference workflows;
 - analyze prompt / image / video materials when requested;
 - improve practical prompt quality without unauthorized semantic expansion.
+
+---
+
+# Current Collaboration Infrastructure
+
+The repository now contains dedicated areas for:
+
+- GPT project records: `GPT/`
+- Grok project records: `GROK/`
+- Gemini project records: `GEMINI/`
+- cross-agent project records: `PROJECT/`
+- research candidates: `research/candidates/`
+- controlled experiments: `experiments/`
+
+These areas are shared project memory and coordination records.
+
+They do not automatically authorize changes to the frozen Skill.
 
 ---
 
@@ -93,7 +111,7 @@ None currently promoted to Skill rules.
 
 See:
 
-research/candidates/
+`research/candidates/`
 
 ---
 
@@ -101,7 +119,7 @@ research/candidates/
 
 None currently active unless separately recorded under:
 
-experiments/
+`experiments/`
 
 ---
 
@@ -109,9 +127,10 @@ experiments/
 
 Before continuing a long-running task, the active agent should read:
 
-1. STATUS.md
-2. DECISIONS.md
-3. CHECKPOINT.md
+1. `STATUS.md`
+2. `DECISIONS.md`
+3. `CHECKPOINT.md`
+4. `ROLE_MATRIX.md`
 
 The agent must identify:
 
@@ -119,14 +138,14 @@ The agent must identify:
 - what we are not doing;
 - which baseline is active;
 - what decisions have already been made;
-- what remains unresolved.
+- what remains unresolved;
+- which role the agent is performing.
 
 ---
 
 # Five-Turn Context Rule
 
-After approximately five substantive project turns, create or update a
-checkpoint.
+After approximately five substantive project turns, create or update a checkpoint.
 
 A checkpoint should record:
 
@@ -138,8 +157,7 @@ A checkpoint should record:
 6. experiments;
 7. next action.
 
-The checkpoint must preserve the baseline and must not silently introduce
-new project rules.
+The checkpoint must preserve the baseline and must not silently introduce new project rules.
 
 ---
 
@@ -147,5 +165,4 @@ new project rules.
 
 The project is currently in practical prompt-production mode.
 
-Next work should begin from the V1-5 baseline rather than from historical
-architecture discussions.
+Next work should begin from the V1-5 baseline rather than from historical architecture discussions.
