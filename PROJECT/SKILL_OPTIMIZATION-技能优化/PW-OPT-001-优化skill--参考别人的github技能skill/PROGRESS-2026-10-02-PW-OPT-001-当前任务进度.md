@@ -12,7 +12,7 @@
 
 本任务中的实验路线不会直接修改正式 Skill。
 
-**Last sync:** 2026-10-03 / Grok checkpoint（GPT offline）
+**Last sync:** 2026-10-03 / Version B experimental skill implemented
 
 ---
 
@@ -36,9 +36,18 @@
 
 ### B｜AI Recommended Optimization（AI 推荐优化版）
 
-状态：🟡 规格/架构/验证文件已有；GPT 本轮 offline
+状态：🟢 **B 版实验 Skill 已按 Gemini 二次审核后的 Final Checklist 落地；尚未 H3 验证**
 
 B 版不是正式 Skill，也不是 A 版的修改版。
+
+已落地：
+- `EXPERIMENTS/.../B-AI-RECOMMENDED-OPTIMIZATION-AI推荐优化版/SKILL-B.md`
+- B-01 ～ B-26 编译/验证/治理规则
+- Compiler Pipeline
+- Internal IR / Pre-flight / Verification / Debug Trace 隔离原则
+- Mode-specific optimization
+- PATCH / Minimal Semantic Change
+- A/B Experimental Isolation
 
 ---
 
@@ -49,6 +58,8 @@ B 版不是正式 Skill，也不是 A 版的修改版。
 - [x] A/B 双路线实验结构与隔离原则
 - [x] 外部 Skill 第一轮结构分析
 - [x] B 版候选清单与相关审核材料
+- [x] **Gemini 完成 B-01 ～ B-26 二次逻辑审核并输出 Final Checklist**
+- [x] **GPT 根据 Gemini Final Checklist 独立落地 Version B 实验 Skill**
 - [x] **2026-10-03 Grok：按纯外部 Skill 写出桌下口交 Prompt**
 - [x] **2026-10-03 Grok：按 Experiment A（SKILL-A）写出桌下口交 Prompt**
 - [x] **2026-10-03 对话检查点写入 `GROK/2026-10-03-CONVERSATION-CHECKPOINT.md`**
@@ -56,9 +67,8 @@ B 版不是正式 Skill，也不是 A 版的修改版。
 ## 当前进行中 / 待办
 
 - [ ] 用户审阅 Pure External / EXP-A 两版 Prompt
-- [ ] 同素材 H3 实测（可选：Pure External vs A；或等 B 齐套后再 A/B）
-- [ ] GPT 恢复后审查本轮 Grok 产出（不得覆盖原稿）
-- [ ] Prompt B（等 User 下令 + B 实验 Skill 就绪）
+- [ ] **由 Grok 基于同一原始任务 + Version B Skill 生成 Prompt B**
+- [ ] 同素材 H3 实测（A vs B；可选 Pure External 作为额外对照）
 - [ ] 统一指标记录与实验结论
 - [ ] 用户批准前不写回正式 Skill
 
@@ -71,6 +81,7 @@ B 版不是正式 Skill，也不是 A 版的修改版。
 3. 实验结果 ≠ 正式规则
 4. Pure External 样本仅作对照，不代表项目默认写法
 5. Grok 原稿与后续 Review 分层保存
+6. B 版新增机制必须保持实验状态，除非经过实测与用户批准，不得自动升级
 
 ---
 
@@ -86,9 +97,11 @@ PW-OPT-001
     ├── Pure External contrast sample（Grok 2026-10-03）✓
     │
     ├── B：AI Recommended Optimization
-    │       └── Prompt B（待 User / B 就绪）
+    │       ├── Gemini Final Checklist ✓
+    │       ├── SKILL-B.md ✓
+    │       └── Prompt B（Grok）← 下一步
     │
     └── H3 实测 → 指标 → 结论 → 用户批准
 ```
 
-**当前节点：Grok 已交付 Pure External + EXP-A 桌下 Prompt；等待用户审阅/实测。**
+**当前节点：Version B 实验 Skill 已完成第一版落地；下一步是让 Grok 使用同一原始任务生成 Prompt B，然后进行 A/B 同条件测试。**
