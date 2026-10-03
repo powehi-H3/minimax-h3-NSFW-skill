@@ -12,13 +12,15 @@
 
 本任务中的实验路线不会直接修改正式 Skill。
 
+**Last sync:** 2026-10-03 / Grok checkpoint（GPT offline）
+
 ---
 
 ## 实验路线
 
 ### A｜External Skill Full Reference（外部 Skill 全量参考版）
 
-状态：🟡 实验资产路线
+状态：🟡 实验资产已有 + **Prompt A 样本已生成**
 
 目标：尽可能完整参考外部 `benjiyaya/Minimax-H3-Prompt-AgentSkill`，形成独立实验版本。
 
@@ -27,17 +29,14 @@
 - 不吸收 B 的优化意见
 - 独立保存、独立测试
 
+已有：
+- `EXPERIMENTS/.../A-.../SKILL-A.md`
+- `GROK/2026-10-03-PROMPT-EXP-A-桌下口交.md`
+- `GROK/2026-10-03-PROMPT-PURE-EXTERNAL-桌下口交.md`（纯外部 Skill 对照样本，非项目正式风格）
+
 ### B｜AI Recommended Optimization（AI 推荐优化版）
 
-状态：🟡 **GPT 第一轮候选完成 / Gemini 二次审核中**
-
-当前 B 版候选清单已经建立在：
-- V1-5 Frozen Baseline
-- 外部 Skill 研究
-- GPT 独立工程分析
-- Gemini 已提供的初步方向
-
-之上。
+状态：🟡 规格/架构/验证文件已有；GPT 本轮 offline
 
 B 版不是正式 Skill，也不是 A 版的修改版。
 
@@ -45,82 +44,51 @@ B 版不是正式 Skill，也不是 A 版的修改版。
 
 ## 已完成
 
-- [x] 确定 PW-OPT-001 任务范围：研究外部 GitHub Skill，并形成独立优化实验。
-- [x] 确定 V1-5 Baseline 保持 FROZEN。
-- [x] 确定 A/B 双路线实验结构。
-- [x] 建立 A/B 实验隔离原则。
-- [x] 完成外部 Skill 的第一轮结构与机制分析。
-- [x] 完成 B 版第一轮优化候选清单（B-01 ～ B-25）。
-- [x] 建立 Gemini B 版独立审核入口。
-- [x] Gemini 已收到 B 版审核要求。
+- [x] 确定 PW-OPT-001 任务范围
+- [x] V1-5 Baseline 保持 FROZEN
+- [x] A/B 双路线实验结构与隔离原则
+- [x] 外部 Skill 第一轮结构分析
+- [x] B 版候选清单与相关审核材料
+- [x] **2026-10-03 Grok：按纯外部 Skill 写出桌下口交 Prompt**
+- [x] **2026-10-03 Grok：按 Experiment A（SKILL-A）写出桌下口交 Prompt**
+- [x] **2026-10-03 对话检查点写入 `GROK/2026-10-03-CONVERSATION-CHECKPOINT.md`**
 
-## 当前进行中
+## 当前进行中 / 待办
 
-- [ ] Gemini 对 B-01 ～ B-25 逐项审核。
-- [ ] Gemini 输出 **B Version Recommended Final Checklist**。
-
-## 下一阶段
-
-- [ ] 完成 A 版实验 Skill。
-- [ ] 根据 Gemini 审核结果完成 B 版实验 Skill。
-- [ ] 由 Grok 基于同一原始任务分别生成 Prompt A / Prompt B。
-- [ ] 使用相同素材、画幅、时长及输入条件进行 H3 A/B 实测。
-- [ ] 记录统一指标。
-- [ ] 分析 A/B 实测结果。
-- [ ] 形成 PW-OPT-001 最终实验结论。
-- [ ] 用户最终批准后，才考虑是否进入未来正式 Skill Candidate / 正式版本。
+- [ ] 用户审阅 Pure External / EXP-A 两版 Prompt
+- [ ] 同素材 H3 实测（可选：Pure External vs A；或等 B 齐套后再 A/B）
+- [ ] GPT 恢复后审查本轮 Grok 产出（不得覆盖原稿）
+- [ ] Prompt B（等 User 下令 + B 实验 Skill 就绪）
+- [ ] 统一指标记录与实验结论
+- [ ] 用户批准前不写回正式 Skill
 
 ---
 
 ## 重要隔离规则
 
-### 1. 不污染正式 Skill
-
-A/B 实验结果不能直接修改 V1-5。
-
-### 2. A/B 互不污染
-
-A 不读取 B 的最终结论作为自身规则；B 也不把 A 的实验实现直接当作自身规则。
-
-### 3. 实验结果不是正式规则
-
-即使某项实验表现优秀，也只能先标记为 `VALIDATED / CANDIDATE`，必须经过用户最终批准才能进入正式 Skill。
-
-### 4. B 当前仍处于审核阶段
-
-B-01 ～ B-25 是 **Review Candidates**，不是已批准规则。
-
-### 5. Grok 介入点
-
-Grok 的主要实验职责发生在 A/B 两个实验版本准备完成后：
-
-`A Skill → Prompt A`
-
-`B Skill → Prompt B`
-
-然后在相同测试条件下进行对照。
+1. 不污染正式 Skill / V1-5
+2. A/B 互不污染
+3. 实验结果 ≠ 正式规则
+4. Pure External 样本仅作对照，不代表项目默认写法
+5. Grok 原稿与后续 Review 分层保存
 
 ---
 
-## 当前任务链
+## 当前任务链（更新）
 
 ```text
 PW-OPT-001
     │
     ├── A：External Skill Full Reference
-    │       └── 实验 Skill
-    │              └── Prompt A（Grok）
+    │       ├── SKILL-A.md
+    │       └── Prompt A（Grok 2026-10-03 桌下口交）✓
+    │
+    ├── Pure External contrast sample（Grok 2026-10-03）✓
     │
     ├── B：AI Recommended Optimization
-    │       ├── GPT 候选 B-01～B-25
-    │       ├── Gemini 二次审核 ← 当前
-    │       └── 实验 Skill
-    │              └── Prompt B（Grok）
+    │       └── Prompt B（待 User / B 就绪）
     │
-    └── H3 A/B 实测
-            └── 统一指标
-                    └── 实验结论
-                            └── 用户最终批准
+    └── H3 实测 → 指标 → 结论 → 用户批准
 ```
 
-**当前节点：Gemini 二次审核 B 版候选清单。**
+**当前节点：Grok 已交付 Pure External + EXP-A 桌下 Prompt；等待用户审阅/实测。**
