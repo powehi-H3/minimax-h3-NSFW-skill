@@ -1,325 +1,119 @@
-# PW-OPT-001 — Version B Experimental Skill
+# PW-OPT-001 / B — AI 推荐优化实验版
 
-**Status:** EXPERIMENTAL / A-B TEST ASSET
-**Baseline:** V1-5 FROZEN
-**Route:** B — AI Recommended Optimization
-**Scope:** independent prompt-compilation experiment; not the formal Skill
+Status: EXPERIMENTAL / DESIGNED / NOT H3-VALIDATED / NOT FORMAL.
 
-## 0. Hard isolation rules
+This B skill is the independent GPT + Gemini reconstruction. V1-5 remains FROZEN. Experiment A is read-only and does not become a rule source for B before testing.
 
-1. Never modify or replace the formal V1-5 Skill.
-2. Never import Experiment A's final implementation as a B rule.
-3. B may use the external Skill as research input, but B rules must be independently justified.
-4. Experimental mechanisms never become formal rules automatically.
-5. Final B output must be auditable, testable, and rollbackable.
-6. User requirements have priority over AI proposals.
-7. Historical task details, old prompts, and prior creative preferences must not silently become requirements for a new task.
+## Compiler pipeline
 
-## 1. Compiler pipeline
+USER INPUT → IDEATION / INTENT GATE → MODE DETECTION → SEMANTIC PLAN → REFERENCE MAP + CONFLICT RESOLUTION → RETENTION / PRE-FLIGHT → SHOT PLAN + TEMPORAL STATE LEDGER → PHYSICAL EXECUTION PLAN → DENSITY BUDGET + COMPRESSION → H3 FORMAT COMPILER → SHOT VERIFICATION → GLOBAL VERIFICATION → FINAL H3 PAYLOAD.
 
-B treats prompt generation as a staged compiler:
+Internal IR, Conflict Tables, Retention Matrices, Debug Trace and Evidence metadata are compiler state and must not leak into the final H3 payload.
 
-`IDEATION -> SEMANTIC PLAN -> REFERENCE MAP -> SHOT PLAN -> PHYSICAL EXECUTION PLAN -> H3 FORMAT COMPILER -> VERIFICATION`
+## B-01 Mode Detection
 
-Only the final compiled payload is intended for the target model. Internal tables, trace metadata, conflict tables, and verification annotations must not leak into the final payload unless the target format explicitly requires them.
+Detect Ref2VA, T2VA, I2VA, FL2VA, L2VA. Classify supplied assets as reference, environment/style, first-frame, last-frame, or storyboard/keyframe. Do not infer a frame anchor merely because an image exists; ask the minimum necessary clarification when role is ambiguous.
 
-### 1.1 IDEATION
+## B-02 Reference Role Mapping
 
-Creative enhancement is optional and gated. It is not automatically applied during compilation.
+Map each asset explicitly to Identity, Clothing, Environment, Composition, Motion, Camera, Audio, Style and/or Frame Anchor. Multiple roles are allowed, but scope must be explicit. Reference constraints are scoped, not global style pollution.
 
-- Complete user story: execute faithfully.
-- Explicit creative-help request: brainstorming is allowed.
-- Rough idea: AI may propose candidates, but proposals must remain visibly separate from requirements until approved.
+## B-03 Reference Conflict Resolver
 
-### 1.2 SEMANTIC PLAN
+Resolve conflicting references in internal IR. User-specified authority wins; existing V1-5 mappings outrank guesses. If unresolved, ask. Conflict tables never enter the final H3 payload.
 
-Normalize the user's requirements without adding unauthorized plot, action, emotion, style, or environment changes.
+## B-04 Retention Analysis 2.0
 
-Classify each element as one of:
+Use an internal Reference Retention Matrix as pre-flight inspection. Track identity, appearance, clothing, pose, motion, environment, audio, camera and frame relationship with statuses fully_preserved, partially_preserved, attribute_transfer, weak_reference and newly_generated. Do not emit retention metadata by default.
 
-- USER_REQUIREMENT
-- REFERENCE_CONSTRAINT
-- INHERITED_RULE
-- AI_PROPOSAL
-- EXPERIMENTAL_MECHANISM
+## B-05 Temporal State Ledger
 
-### 1.3 REFERENCE MAP
+Track subject, pose, object, environment, camera, audio, newly introduced and carried-over state per Shot. Use additive state inheritance; established state does not disappear without an explicit change.
 
-Every reference asset receives an explicit semantic role. Supported roles include:
+## B-06 One Dominant Action per Shot
 
-- Identity
-- Appearance
-- Clothing
-- Environment
-- Composition
-- Motion
-- Camera
-- Audio
-- Style
-- Frame Anchor
+One same-level dominant action per Shot. Micro-actions, breathing and facial reactions may coexist. Split competing major actions into separate Shots/time ranges.
 
-A reference constrains only its declared scope. Do not infer global transfer from an incidental feature.
+## B-07 Action Vector Layer
 
-### 1.4 SHOT PLAN
+Translate execution-critical actions into direction, amplitude, frequency, contact, trajectory, speed, acceleration/deceleration, start and end state. Apply Minimum Sufficient Physical Description: only information that can change execution belongs in the final payload.
 
-Represent time and continuity explicitly. Each shot records its state transition and one dominant physical action.
+## B-08 Camera Kinematics
 
-`Shot N = carried-over state + explicit change`
+Maintain a separate Camera State: type, viewpoint, framing, movement, amplitude, speed, stabilization and depth behavior. Compile camera and subject action separately to reduce semantic coupling.
 
-### 1.5 PHYSICAL EXECUTION PLAN
+## B-09 Spatial Geography
 
-Translate only execution-relevant abstractions into physical language.
+Adaptive levels: L0 basic positional relations; L1 foreground/midground/background; L2 direction, proportion and occlusion; L3 complex 3D spatial graph is RESEARCH ONLY. Do not force numeric ratios unless they improve execution.
 
-Action vectors may include:
+## B-10 Adaptive Prompt Density
 
-- direction
-- amplitude
-- frequency
-- contact
-- trajectory
-- speed
-- acceleration/deceleration
-- start state
-- end state
+Use a Prompt Density Budget. Simple tasks stay concise; complex spatial tasks receive necessary spatial/continuity/camera anchors; difficult motion receives necessary action vectors; dialogue-heavy tasks receive timing/speech information. Avoid attention overcrowding.
 
-Use **Minimum Sufficient Physical Description**. Do not expand every action into unnecessary prose.
+## B-11 Creative Enhancement Gating
 
-### 1.6 H3 FORMAT COMPILER
+Separate USER-SPECIFIED STORY, USER REQUESTS CREATIVE HELP and ROUGH IDEA. AI proposals are never silently promoted to user requirements.
 
-Compile the internal representation into the required H3 prompt contract for the selected generation mode.
+## B-12 Narrative Creative Enhancement
 
-The compiler must preserve:
+Keep ideation separate from compilation: User Idea → Brainstorm → Candidate A/B/C → User Selection → Prompt Compilation. Only confirmed ideas enter the final payload.
 
-- reference labels
-- required fields
-- mode-specific structure
-- timestamps
-- continuity
-- camera/action/environment separation
+## B-13 Environmental Reactivity
 
-## 2. Mode Detection
+Default OFF. Enable only when explicitly requested, story-critical, or execution-helpful. Otherwise prefer background stability.
 
-B-01 is a required preflight layer.
+## B-14 Visual Texture Budget
 
-Detect the applicable generation mode:
+Prefer Reference over redundant prose. With a strong visual reference, compress extra texture/lighting/film-look descriptors. Without a reference, add only necessary visual parameters.
 
-- Ref2VA
-- T2VA
-- I2VA
-- FL2VA
-- L2VA
+## B-15 Three-layer decoupling
 
-Also classify assets as reference assets, environment/style references, frame anchors, storyboard/keyframe assets, or other supported input roles.
+Keep CAMERA, SUBJECT ACTION and ENVIRONMENT as separate prompt layers. Relationships may be represented, but avoid unnecessary long mixed sentences.
 
-If the mode or asset role is materially ambiguous, ask the smallest necessary clarification instead of guessing.
+## B-16 PATCH Architecture
 
-## 3. Reference conditioning
+Support PATCH_CAMERA, PATCH_ACTION, PATCH_CHARACTER, PATCH_ENVIRONMENT, PATCH_AUDIO, PATCH_TIMING and PATCH_REFERENCE. A patch identifies its target layer and requested change.
 
-### B-02 Reference Role Mapping
+## B-17 Minimal Semantic Change
 
-Map every input asset to explicit roles and scope.
+A patch changes only the user-specified layer. Non-target layers default to PRESERVE. Do not use a local patch as an excuse to rewrite the whole prompt.
 
-### B-03 Reference Conflict Resolver
+## B-18 Shot-Level Verification
 
-Resolve conflicting references in internal Intermediate Representation only. Do not emit a conflict table or internal authority metadata into the final H3 payload.
+Before emitting each Shot, assert dominant-action uniqueness, subject, reference, camera, environment, state continuity, timestamp validity and absence of unauthorized new plot. Prefer local repair over global rewrite.
 
-When authority is not specified and the conflict materially changes the result, request clarification rather than inventing a priority.
+## B-19 Global Verification
 
-### B-04 Retention Analysis 2.0
+Verify reference labels/roles, timeline order/duration/continuity, camera-action separation, semantic fidelity/no unauthorized invention, exact output schema and required fields.
 
-Run as a preflight inspection. Track expected retention across identity, appearance, clothing, pose, motion, environment, audio, camera, and frame relationship.
+## B-20 Debug Trace
 
-Retention metadata is internal state; it is not final prompt prose.
+Internally trace each prompt element to User Requirement, Reference, V1-5 inherited rule, External Skill research, AI recommendation or User-approved creative addition. Strip Debug Trace from final H3 payload.
 
-### B-24 Reference Asset Wiring Awareness
+## B-21 Evidence / Candidate Status
 
-Keep semantic reference mapping separate from physical input order. Semantic role assignment must never silently reorder physical input sockets.
+Lifecycle: RESEARCH → EXPERIMENTAL → VALIDATED → PROPOSED → FROZEN. No experiment becomes a formal rule automatically.
 
-## 4. Temporal and physical controls
+## B-22 A/B Isolation
 
-### B-05 Temporal State Ledger
+B inputs are V1-5 Frozen, raw external research, GPT independent analysis, Gemini independent review and explicit user requirements. A's final implementation is not a B constraint before testing.
 
-Track per-shot:
+## B-23 Mode-Specific Optimization
 
-- subject state
-- pose state
-- object state
-- environment state
-- camera state
-- audio state
-- newly introduced state
-- carried-over state
+Ref2VA emphasizes reference mapping/retention/wiring; I2VA emphasizes frame continuity/state; FL2VA emphasizes first/last frame relationships; L2VA emphasizes end-frame relationship; T2VA emphasizes timeline/shot/action/camera. Do not load every enhancement into every mode.
 
-### B-06 One Dominant Action per Shot
+## B-24 Asset Wiring Awareness
 
-Each shot has one dominant action. Secondary micro-actions, breathing, facial reactions, and subtle movements may accompany it, but a second same-level dominant action must be moved to another shot.
+Keep semantic Reference Mapping separate from physical socket order. Image 1 maps to physical input 1, etc., while semantic responsibility remains an independent mapping.
 
-### B-07 Action Vector Layer
+## B-25 Output Compiler
 
-Use minimum sufficient physical descriptors that materially affect execution. Avoid decorative physical detail that consumes attention without changing execution.
+Compile through IDEATION → SEMANTIC PLAN → REFERENCE MAP → SHOT PLAN → PHYSICAL EXECUTION PLAN → H3 FORMAT COMPILER → VERIFICATION. Do not jump directly from natural language to a complex final payload.
 
-### B-08 Camera Kinematics Layer
+## B-26 Constitution
 
-Maintain a separate camera state containing viewpoint, framing, movement, amplitude, speed, stabilization, and depth behavior. Do not linguistically fuse camera transforms with subject motion when separation is possible.
+User semantics first; reference constraints first; H3 executability first; minimum sufficient description; creative/compilation separation; camera/action/environment separation; experimental/formal separation; traceable, testable and reversible additions; no historical-context invention; no V1-5/A/formal-skill modification without user approval.
 
-## 5. Spatial and attention controls
+## Final Ref2VA interface
 
-### B-09 Spatial Geography Layer
-
-Adapt spatial detail to scene complexity:
-
-- L0: basic relative positions
-- L1: foreground / midground / background
-- L2: ratios, direction, occlusion, and explicit spatial relationships
-- L3: complex 3D spatial graphs — **RESEARCH ONLY**, not part of the default B implementation
-
-### B-10 Adaptive Prompt Density
-
-Allocate prompt detail according to task complexity. More detail is justified only when it improves execution. The compiler should prefer minimum sufficient information over maximum description.
-
-### B-13 Environmental Reactivity Controller
-
-Default: OFF.
-
-Enable only when the user explicitly requests environmental motion, the environment is central to the action/story, or the environmental response materially improves execution.
-
-### B-14 Visual Texture Budget
-
-Prefer reference-driven visual identity. When a reference already establishes appearance/style, suppress redundant texture and cinematic modifier stacking. Without a sufficient reference, add only necessary visual parameters.
-
-## 6. Creative gating
-
-### B-11 Creative Enhancement Gating
-
-Separate user requirements from AI proposals. AI proposals never become requirements without user approval.
-
-### B-12 Narrative Creative Enhancement
-
-Keep brainstorming outside prompt compilation:
-
-`User Idea -> Brainstorm -> Candidate A/B/C -> User Approval -> Compilation`
-
-No automatic Pacing Arc or narrative escalation is injected into a user-specified story.
-
-## 7. Structural separation and patching
-
-### B-15 Camera / Subject / Environment separation
-
-Maintain three independently addressable layers:
-
-- CAMERA
-- SUBJECT ACTION
-- ENVIRONMENT
-
-Relationships are allowed, but do not collapse all three into one opaque sentence when separable structure improves correctness and debugging.
-
-### B-16 PATCH Architecture
-
-Support targeted patch operations conceptually:
-
-- PATCH_CAMERA
-- PATCH_ACTION
-- PATCH_CHARACTER
-- PATCH_ENVIRONMENT
-- PATCH_AUDIO
-- PATCH_TIMING
-- PATCH_REFERENCE
-
-### B-17 Minimal Semantic Change
-
-A patch changes only the requested target layer. Untargeted layers remain locked unless the requested change logically requires a dependent update, which must be explicitly recorded.
-
-## 8. Verification
-
-### B-18 Shot-Level Verification
-
-For every shot verify:
-
-- exactly one dominant action
-- subject/reference role correctness
-- camera correctness
-- environment correctness
-- state continuity
-- valid timestamp
-- no unauthorized narrative addition
-
-### B-19 Global Verification
-
-Before output verify:
-
-- reference labels and roles are consistent
-- no invented references
-- timestamps increase and fit duration
-- state continuity is coherent
-- camera/action separation is preserved
-- no unauthorized plot or creative invention exists
-- output format and required fields are correct
-- no internal commentary leaks into the final payload
-
-### B-20 Debug Trace
-
-Maintain source attribution internally for each meaningful compiled element:
-
-- USER_REQUIREMENT
-- REFERENCE
-- V1-5_INHERITED_RULE
-- EXTERNAL_RESEARCH
-- AI_RECOMMENDATION
-- USER_APPROVED_CREATIVE
-
-Debug trace must be stripped from the final H3 payload.
-
-## 9. Governance
-
-### B-21 Evidence / Candidate Status
-
-Every experimental mechanism carries a lifecycle state:
-
-- RESEARCH
-- EXPERIMENTAL
-- VALIDATED
-- PROPOSED
-- FROZEN
-
-### B-22 A/B Experimental Isolation
-
-B is independent from A until evaluation. A's implementation must not become a hidden B constraint.
-
-### B-23 Mode-Specific Optimization
-
-Apply mechanisms according to generation mode rather than forcing every enhancement into every mode.
-
-Examples:
-
-- Ref2VA: reference mapping and role isolation receive priority.
-- I2VA / FL2VA: frame and temporal continuity receive priority.
-- T2VA: timeline and shot orchestration receive priority.
-
-### B-26 Overall charter
-
-The B implementation follows this priority order:
-
-1. User semantic fidelity
-2. Reference constraints
-3. Target-model executability
-4. Minimum sufficient description
-5. Creative/compilation separation
-6. Camera/action/environment separation
-7. Experimental/formal rule separation
-8. Traceability, testability, and rollback
-
-## 10. Explicit non-goals
-
-B does not:
-
-- alter the formal V1-5 baseline;
-- silently adopt A's final rules;
-- guarantee exact visual identity or generation outcomes;
-- force complex spatial graphs;
-- inject narrative escalation into specified stories;
-- expose internal IR, retention matrices, conflict tables, or debug traces to the target model;
-- treat experimental mechanisms as validated merely because they are theoretically plausible.
-
-## 11. Experimental status
-
-This file is the **B experimental skill specification**, not the production Skill. It must be tested against the same task/material/parameters used for A before any promotion decision.
+When compiling to the project's Ref2VA payload, preserve the existing six-field interface: subject_definitions, summary, retention_analysis, detailed_description, overall_soundscape, non_diegetic_music. Internal IR/debug/verification metadata must not contaminate it.
