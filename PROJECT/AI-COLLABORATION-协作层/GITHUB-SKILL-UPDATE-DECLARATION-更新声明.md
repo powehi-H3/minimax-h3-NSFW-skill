@@ -108,3 +108,47 @@ GitHub / Skill Update Declaration 属于协作层的版本同步记录，不替�
 > **任何依赖最新 Skill 的执行，都必须重新读取最新 Skill 文件。**
 
 GitHub 当前文件内容与用户明确授权，是最终 Source of Truth。
+
+## 7. Daily Conversation Read Intent｜日常对话读取语义（新增）
+
+当用户明确说：
+
+> **“查看日常对话” / “看一下日常记录” / “读取日常对话”**
+
+默认含义不是让 AI 做归档说明，也不是让 AI 只挑选某个主题，而是：
+
+> **用户正在通知当前 AI：另一个 AI 已经把它截至当前时点的最新聊天内容同步进 Daily Conversations，当前 AI 需要读取这些最新日常记录，以恢复跨 AI 协作上下文。**
+
+因此，收到这种指令后，当前 AI 应：
+
+1. 进入当前日期对应的 `DAILY-CONVERSATIONS-日常对话` 文件；
+2. 优先读取当天最新日常文件；
+3. 必要时衔接读取紧邻的上一份日常记录，以恢复上下文连续性；
+4. 将 Daily Conversation 视为当前 AI 的**协作上下文输入**；
+5. 读取后再继续用户当前任务。
+
+除非用户明确说明其他目的，否则**不要把“查看日常对话”理解成要求整理、重写、审核、迁移或归档日常文件。**
+
+如果用户说的是“把这段对话存到日常”，才执行 Daily Archive 写入流程；如果用户说“把某某内容存到当前任务”，才执行 Task Archive 写入流程。
+
+### 7.1 Daily 是跨 AI 上下文桥接，不是任务真相源
+
+Daily Conversation 的主要用途是：
+
+`GPT ↔ Grok ↔ 其他 AI`
+
+之间传递近期协作上下文。
+
+它不是对正式 Skill、Task Archive 或 Update Declaration 的替代品。
+
+当 Daily 与正式 Task / Skill 文件发生冲突时，应继续遵循既有的 Source of Truth 层级，而不能因为 Daily 中出现某个说法就自动升级为正式规则。
+
+## 8. Daily / Task 写入规则仍保持不变
+
+- 用户说“存到日常” → 写入 Daily Conversation；
+- 用户说“存到当前任务 / 某某任务” → 写入对应 Task Directory；
+- 用户没有明确指定任务归档 → 不自行把普通对话升级成 Task Archive；
+- Daily 文件按日拆分，避免单文件无限增长；
+- Daily 条目必须保留来源前缀：`用户:` / `GPT:` / `GROK:` 等；
+- AI 自己写入的条目应标明执行 AI 与时间；
+- 如一条内容同时涉及多个 AI，应分别保留实际来源，不得把其他 AI 的原话冒充为当前 AI 的内容。
